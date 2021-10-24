@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 require('dotenv').config({ path: './config/.env' });
 
+const items = require('./routes/api/items');
+
 const app = express();
 
 // Bodyparser Middleware
@@ -14,6 +16,9 @@ mongoose
     .connect(mongoURI)
     .then(() => console.log('MongoDB connected'))
     .catch(e => console.log(e));
+
+// Use Routes
+app.use('/api/items', items);
 
 const port = process.env.PORT || 5000;
 
