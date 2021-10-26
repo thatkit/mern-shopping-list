@@ -16,11 +16,7 @@ const NavbarComp = (props) => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <Navbar 
-      color="dark" 
-      dark expand="sm" 
-      className="mb-5"
-    >
+    <Navbar color="dark" dark expand="sm" className="mb-5">
       <Container>
         <NavbarBrand href="/">Shopping List</NavbarBrand>
         <NavbarToggler onClick={toggle} />
@@ -32,7 +28,6 @@ const NavbarComp = (props) => {
               </NavLink>
             </NavItem>
           </Nav>
-
         </Collapse>
       </Container>
     </Navbar>
