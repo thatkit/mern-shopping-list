@@ -20,7 +20,23 @@ const ShoppingList = (props) => {
     return (
         <Container>
             <ListGroup>
-                {items.map(el => <ListGroupItem key={el.id}>{el.name}</ListGroupItem>)}
+                <TransitionGroup className="shopping-list">
+                    {items.map(({id, name}) => (
+                        <CSSTransition key={id} timeout={500}>
+                            <ListGroupItem>
+                                {name}
+                                <Button
+                                    className="remove-btn"
+                                    color="danger"
+                                    size="sm"
+                                    onClick={() => {
+                                        setItems(items);
+                                    }}
+                                >&times;</Button>
+                            </ListGroupItem>
+                        </CSSTransition>
+                    ))}
+                </TransitionGroup>
             </ListGroup>
             <Button
                 color="dark"
