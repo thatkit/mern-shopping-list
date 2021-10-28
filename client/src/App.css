@@ -1,0 +1,7 @@
+.list-item {
+    height: 3rem;
+}
+
+.remove-btn {
+    float: inline-end;
+}

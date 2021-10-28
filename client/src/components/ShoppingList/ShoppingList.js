@@ -15,41 +15,43 @@ const ShoppingList = (props) => {
             { id: uuid(), name: 'Choco' },
             { id: uuid(), name: 'Water' }
     ]);
-    
 
+    const handleAdd = () => {
+        const name = prompt('Enter Item');
+        if (name) {
+            setItems([...items, { id: uuid(), name }]);
+        }
+    }
+
+    const handleDelete = id => setItems(items.filter(item => item.id !== id));
+    
     return (
         <Container>
+
             <ListGroup>
                 <TransitionGroup className="shopping-list">
                     {items.map(({id, name}) => (
                         <CSSTransition key={id} timeout={500}>
-                            <ListGroupItem>
+                            <ListGroupItem className="list-item">
                                 {name}
                                 <Button
                                     className="remove-btn"
                                     color="danger"
                                     size="sm"
-                                    onClick={() => {
-                                        setItems(items);
-                                    }}
+                                    onClick={() => handleDelete(id)}
                                 >&times;</Button>
                             </ListGroupItem>
                         </CSSTransition>
                     ))}
                 </TransitionGroup>
             </ListGroup>
+
             <Button
                 color="dark"
                 className="mt-3"
-                onClick={() => {
-                    const name = prompt('Enter Item');
-                    if (name) {
-                        setItems([...items, { id: uuid(), name }]);
-                    }
-                }}
-            >
-                Add Item
-            </Button>
+                onClick={handleAdd}
+            >Add Item</Button>
+
         </Container>
     );
 }
