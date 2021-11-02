@@ -8,7 +8,8 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { v4 as uuid } from 'uuid';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { /*getItems, */addItem, deleteItem } from './shoppingListSlice';
+// import { getItems, addItem, deleteItem } from './shoppingListSlice';
+import { addItem, deleteItem } from './shoppingListSlice';
 
 const ShoppingList = () => {
     const items = useSelector(state => state.shoppingList);

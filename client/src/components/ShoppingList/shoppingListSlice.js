@@ -7,7 +7,7 @@ export const shoppingListSlice = createSlice({
         { id: uuid(), name: 'Meat' },
         { id: uuid(), name: 'Veggies' },
         { id: uuid(), name: 'Choco' },
-        { id: uuid(), name: 'Water' }
+        { id: uuid(), name: 'Milk' }
     ],
     reducers: {
         // getItems: (state) => {
@@ -22,6 +22,7 @@ export const shoppingListSlice = createSlice({
     }
 });
 
-export const { /*getItems,*/addItem, deleteItem } = shoppingListSlice.actions;
+// export const { getItems, addItem, deleteItem } = shoppingListSlice.actions;
+export const { addItem, deleteItem } = shoppingListSlice.actions;
 
 export default shoppingListSlice.reducer;
