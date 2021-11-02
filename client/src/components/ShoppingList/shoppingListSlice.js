@@ -10,18 +10,18 @@ export const shoppingListSlice = createSlice({
         { id: uuid(), name: 'Water' }
     ],
     reducers: {
-        getItems: (state) => {
-            return state;
-        },
+        // getItems: (state) => {
+        //     return state;
+        // },
         addItem: (state, action) => {
             return [...state, action.payload];
         },
         deleteItem: (state, action) => {
-            return state.filter(item => item.id !== action.payload.id);
+            return state.filter(item => item.id !== action.payload);
         }
     }
 });
 
-export const { getItems, addItem, deleteItem } = shoppingListSlice.actions;
+export const { /*getItems,*/addItem, deleteItem } = shoppingListSlice.actions;
 
 export default shoppingListSlice.reducer;

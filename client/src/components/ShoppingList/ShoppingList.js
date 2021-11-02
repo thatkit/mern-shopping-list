@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { 
     Container,
     ListGroup,
@@ -8,22 +7,23 @@ import {
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { v4 as uuid } from 'uuid';
 
-const ShoppingList = (props) => {
-    const [items, setItems] = useState([
-            { id: uuid(), name: 'Meat' },
-            { id: uuid(), name: 'Veggies' },
-            { id: uuid(), name: 'Choco' },
-            { id: uuid(), name: 'Water' }
-    ]);
+import { useSelector, useDispatch } from 'react-redux';
+import { /*getItems, */addItem, deleteItem } from './shoppingListSlice';
+
+const ShoppingList = () => {
+    const items = useSelector(state => state.shoppingList);
+    const dispatch = useDispatch();
 
     const handleAdd = () => {
         const name = prompt('Enter Item');
         if (name) {
-            setItems([...items, { id: uuid(), name }]);
+            dispatch(addItem({ id: uuid(), name }));
         }
     }
 
-    const handleDelete = id => setItems(items.filter(item => item.id !== id));
+    const handleDelete = id => {
+        dispatch(deleteItem(id));
+    }
     
     return (
         <Container>
