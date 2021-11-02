@@ -23,7 +23,7 @@ const NavbarComp = (props) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto float-right" navbar>
             <NavItem>
-              <NavLink href="https://github.com/thatkit">
+              <NavLink href="https://github.com/thatkit/mern-shopping-list" target="blank">
                 GitHub
               </NavLink>
             </NavItem>

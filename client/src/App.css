@@ -1,3 +1,7 @@
+.list-cnt {
+    padding: 0 auto;
+}
+
 .list-item {
     height: 3rem;
 }

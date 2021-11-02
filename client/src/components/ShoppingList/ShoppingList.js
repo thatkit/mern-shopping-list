@@ -1,5 +1,4 @@
 import { 
-    Container,
     ListGroup,
     ListGroupItem,
     Button
@@ -15,45 +14,35 @@ const ShoppingList = () => {
     const items = useSelector(state => state.shoppingList);
     const dispatch = useDispatch();
 
-    const handleAdd = () => {
-        const name = prompt('Enter Item');
-        if (name) {
-            dispatch(addItem({ id: uuid(), name }));
-        }
-    }
+    // const handleAdd = () => {
+    //     const name = prompt('Enter Item');
+    //     if (name) {
+    //         dispatch(addItem({ id: uuid(), name }));
+    //     }
+    // }
 
     const handleDelete = id => {
         dispatch(deleteItem(id));
     }
     
     return (
-        <Container>
-
-            <ListGroup>
-                <TransitionGroup className="shopping-list">
-                    {items.map(({id, name}) => (
-                        <CSSTransition key={id} timeout={500}>
-                            <ListGroupItem className="list-item">
-                                {name}
-                                <Button
-                                    className="remove-btn"
-                                    color="danger"
-                                    size="sm"
-                                    onClick={() => handleDelete(id)}
-                                >&times;</Button>
-                            </ListGroupItem>
-                        </CSSTransition>
-                    ))}
-                </TransitionGroup>
-            </ListGroup>
-
-            <Button
-                color="dark"
-                className="mt-3"
-                onClick={handleAdd}
-            >Add Item</Button>
-
-        </Container>
+        <ListGroup className="list-cnt">
+            <TransitionGroup className="shopping-list">
+                {items.map(({id, name}) => (
+                    <CSSTransition key={id} timeout={500}>
+                        <ListGroupItem className="list-item">
+                            {name}
+                            <Button
+                                className="remove-btn"
+                                color="danger"
+                                size="sm"
+                                onClick={() => handleDelete(id)}
+                            >&times;</Button>
+                        </ListGroupItem>
+                    </CSSTransition>
+                ))}
+            </TransitionGroup>
+        </ListGroup>
     );
 }
 

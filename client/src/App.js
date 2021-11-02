@@ -1,15 +1,21 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
+import { Container } from 'reactstrap'
+
 //components
 import NavbarComp from './components/NavbarComp/NavbarComp';
 import ShoppingList from './components/ShoppingList/ShoppingList';
+import ItemModal from './components/ItemModal/ItemModal';
 
 const App = () => {
   return (
     <div className="App">
       <NavbarComp />
-      <ShoppingList />
+      <Container>
+        <ShoppingList />
+        <ItemModal />
+      </Container>
     </div>
   );
 }
