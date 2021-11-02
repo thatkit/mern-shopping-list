@@ -1,19 +1,19 @@
-import { useState } from 'react';
 import {
     Button,
     Modal,
     ModalHeader,
     ModalBody,
     Form,
-    FormGroup,
-    Label,
     Input,
-    noRefCheck
 } from 'reactstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import { v4 as uuid } from 'uuid';
+
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { addItem } from '../ShoppingList/shoppingListSlice';
 
 const ItemModal = () => {
+    const dispatch = useDispatch();
     const [state, setState] = useState({
         open: false,
         inputValue: ''
@@ -32,8 +32,10 @@ const ItemModal = () => {
         });
     }
 
-    const handleSubmit = () => {
-        
+    const handleSubmit = e => {
+        e.preventDefault();
+        dispatch(addItem({ id: uuid(), name: state.inputValue }));
+        handleToggle();
     }
 
     return (
@@ -51,17 +53,14 @@ const ItemModal = () => {
                 <ModalHeader>Add to shopping list</ModalHeader>
                 <ModalBody>
                     <Form onSubmit={handleSubmit}>
-                        <FormGroup>
-                            <Label for="items">Item</Label>
-                            <Input 
-                                type="text"
-                                name="name"
-                                id="item"
-                                placeholder="Add shopping item"
-                                onChange={handleChange}
-                            />
-                        </FormGroup>
-                        <Button>
+                        <Input 
+                            type="text"
+                            name="name"
+                            id="item"
+                            placeholder="Add shopping item"
+                            onChange={handleChange}
+                        />
+                        <Button color="dark" className="mt-3" >
                             Add Item                            
                         </Button>
                     </Form>

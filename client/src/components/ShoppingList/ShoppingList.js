@@ -4,22 +4,13 @@ import {
     Button
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { v4 as uuid } from 'uuid';
 
 import { useSelector, useDispatch } from 'react-redux';
-// import { getItems, addItem, deleteItem } from './shoppingListSlice';
-import { addItem, deleteItem } from './shoppingListSlice';
+import { deleteItem } from './shoppingListSlice';
 
 const ShoppingList = () => {
     const items = useSelector(state => state.shoppingList);
     const dispatch = useDispatch();
-
-    // const handleAdd = () => {
-    //     const name = prompt('Enter Item');
-    //     if (name) {
-    //         dispatch(addItem({ id: uuid(), name }));
-    //     }
-    // }
 
     const handleDelete = id => {
         dispatch(deleteItem(id));

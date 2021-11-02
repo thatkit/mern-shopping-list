@@ -3,7 +3,6 @@ import './App.css';
 
 import { Container } from 'reactstrap'
 
-//components
 import NavbarComp from './components/NavbarComp/NavbarComp';
 import ShoppingList from './components/ShoppingList/ShoppingList';
 import ItemModal from './components/ItemModal/ItemModal';
