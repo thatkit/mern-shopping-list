@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { v4 as uuid } from 'uuid';
 
-const loadItems = createAsyncThunk(
+export const loadItems = createAsyncThunk(
     'items/loadItems',
     async (arg, thunkAPI) => {
         let items = await fetch('/api/items');
@@ -13,12 +12,7 @@ const loadItems = createAsyncThunk(
 export const shoppingListSlice = createSlice({
     name: 'items',
     initialState: {
-        items: [
-            { id: uuid(), name: 'Meat' },
-            { id: uuid(), name: 'Veggies' },
-            { id: uuid(), name: 'Choco' },
-            { id: uuid(), name: 'Milk' }
-        ],
+        items: [],
         isLoading: false,
         hasError: false
     },

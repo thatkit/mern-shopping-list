@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { 
     ListGroup,
     ListGroupItem,
@@ -6,11 +7,17 @@ import {
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteItem } from './shoppingListSlice';
+import { loadItems, deleteItem } from './shoppingListSlice';
 
 const ShoppingList = () => {
-    const items = useSelector(state => state.shoppingList.items);
     const dispatch = useDispatch();
+    const items = useSelector(state => state.shoppingList.items);
+
+    // loads items from server on first render
+    useEffect(() => {
+        const promise = dispatch(loadItems());
+        return () => promise.abort();
+    }, [dispatch]);
 
     const handleDelete = id => {
         dispatch(deleteItem(id));
@@ -19,15 +26,15 @@ const ShoppingList = () => {
     return (
         <ListGroup className="list-cnt">
             <TransitionGroup className="shopping-list">
-                {items.map(({id, name}) => (
-                    <CSSTransition key={id} timeout={500}>
+                {items.map(({_id, name}) => (
+                    <CSSTransition key={_id} timeout={500}>
                         <ListGroupItem className="list-item">
                             {name}
                             <Button
                                 className="remove-btn"
                                 color="danger"
                                 size="sm"
-                                onClick={() => handleDelete(id)}
+                                onClick={() => handleDelete(_id)}
                             >&times;</Button>
                         </ListGroupItem>
                     </CSSTransition>
