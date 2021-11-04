@@ -19,10 +19,7 @@ const ShoppingList = () => {
         return () => promise.abort();
     }, [dispatch]);
 
-    const handleDelete = id => {
-        console.log(id)
-        dispatch(deleteItem(id));
-    }
+    const handleDelete = id => dispatch(deleteItem(id));
     
     return (
         <ListGroup className="list-cnt">

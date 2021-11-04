@@ -1,22 +1,35 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+// @action      loadItems
 export const loadItems = createAsyncThunk(
     'items/loadItems',
     async (arg, thunkAPI) => {
-        let items = await fetch('/api/items');
-        items = await items.json();
-        return items;
+        let response = await fetch('/api/items');
+        response = await response.json();
+        return response;
     }
 );
 
+// @action      addItem
 export const addItem = createAsyncThunk(
     'items/addItem',
     async (item, thunkAPI) => {
-        console.log(item)
         let response = await fetch('/api/items', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(item)
+        });
+        response = await response.json();
+        return response;
+    }
+);
+
+// @action      deleteItem
+export const deleteItem = createAsyncThunk(
+    'items/deleteItem',
+    async (id, thunkAPI) => {
+        let response = await fetch(`/api/items/${id}`, {
+            method: 'DELETE'
         });
         response = await response.json();
         return response;
@@ -30,21 +43,9 @@ export const shoppingListSlice = createSlice({
         isLoading: false,
         hasError: false
     },
-    reducers: {
-        // addItem: (state, action) => {
-        //     return {
-        //         ...state,
-        //         items: [...state.items, action.payload]
-        //     };
-        // },
-        deleteItem: (state, action) => {
-            return {
-                ...state,
-                items: state.items.filter(item => item._id !== action.payload)
-            };
-        }
-    },
+    reducers: {},
     extraReducers: {
+        // @reducers      loadItems
         [loadItems.fulfilled]: (state, action) => {
             state.items = action.payload;
             state.isLoading = false;
@@ -58,22 +59,35 @@ export const shoppingListSlice = createSlice({
             state.isLoading = false;
             state.hasError = true;
         },
+        // @reducers      addItem
         [addItem.fulfilled]: (state, action) => {
             state.items.push(action.payload);
             state.isLoading = false;
             state.hasError = false;
         },
         [addItem.pending]: (state, action) => {
-            state.isLoading = false;
+            state.isLoading = true;
             state.hasError = false;
         },
         [addItem.rejected]: (state, action) => {
             state.isLoading = false;
+            state.hasError = true;
+        },
+        // @reducers      deleteItem
+        [deleteItem.fulfilled]: (state, action) => {
+            state.items = state.items.filter(item => item._id !== action.payload.id);
+            state.isLoading = false;
             state.hasError = false;
+        },
+        [deleteItem.pending]: (state, action) => {
+            state.isLoading = true;
+            state.hasError = false;
+        },
+        [deleteItem.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.hasError = true;
         }
     }
 });
-
-export const { deleteItem } = shoppingListSlice.actions;
 
 export default shoppingListSlice.reducer;

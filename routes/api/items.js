@@ -31,7 +31,7 @@ router.post('/', (req, res) => {
 router.delete('/:id', (req, res) => {
     Item
         .findById(req.params.id)
-        .then(item => item.remove().then(() => res.json({success: true})))
+        .then(item => item.remove().then(() => res.json({ id: req.params.id })))
         .catch(e => res.status(404).json({success: false}));
 });
 
