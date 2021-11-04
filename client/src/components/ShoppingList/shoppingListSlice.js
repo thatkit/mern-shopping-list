@@ -26,7 +26,7 @@ export const shoppingListSlice = createSlice({
         deleteItem: (state, action) => {
             return {
                 ...state,
-                items: state.items.filter(item => item.id !== action.payload)
+                items: state.items.filter(item => item._id !== action.payload)
             };
         }
     },

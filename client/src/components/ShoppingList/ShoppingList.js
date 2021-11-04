@@ -20,6 +20,7 @@ const ShoppingList = () => {
     }, [dispatch]);
 
     const handleDelete = id => {
+        console.log(id)
         dispatch(deleteItem(id));
     }
     
