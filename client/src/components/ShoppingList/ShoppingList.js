@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteItem } from './shoppingListSlice';
 
 const ShoppingList = () => {
-    const items = useSelector(state => state.shoppingList);
+    const items = useSelector(state => state.shoppingList.items);
     const dispatch = useDispatch();
 
     const handleDelete = id => {
