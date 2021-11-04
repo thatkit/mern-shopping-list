@@ -9,6 +9,20 @@ export const loadItems = createAsyncThunk(
     }
 );
 
+export const addItem = createAsyncThunk(
+    'items/addItem',
+    async (item, thunkAPI) => {
+        console.log(item)
+        let response = await fetch('/api/items', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(item)
+        });
+        response = await response.json();
+        return response;
+    }
+);
+
 export const shoppingListSlice = createSlice({
     name: 'items',
     initialState: {
@@ -17,12 +31,12 @@ export const shoppingListSlice = createSlice({
         hasError: false
     },
     reducers: {
-        addItem: (state, action) => {
-            return {
-                ...state,
-                items: [...state.items, action.payload]
-            };
-        },
+        // addItem: (state, action) => {
+        //     return {
+        //         ...state,
+        //         items: [...state.items, action.payload]
+        //     };
+        // },
         deleteItem: (state, action) => {
             return {
                 ...state,
@@ -44,9 +58,22 @@ export const shoppingListSlice = createSlice({
             state.isLoading = false;
             state.hasError = true;
         },
+        [addItem.fulfilled]: (state, action) => {
+            state.items.push(action.payload);
+            state.isLoading = false;
+            state.hasError = false;
+        },
+        [addItem.pending]: (state, action) => {
+            state.isLoading = false;
+            state.hasError = false;
+        },
+        [addItem.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.hasError = false;
+        }
     }
 });
 
-export const { addItem, deleteItem } = shoppingListSlice.actions;
+export const { deleteItem } = shoppingListSlice.actions;
 
 export default shoppingListSlice.reducer;

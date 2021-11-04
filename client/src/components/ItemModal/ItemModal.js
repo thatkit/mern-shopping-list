@@ -6,7 +6,6 @@ import {
     Form,
     Input,
 } from 'reactstrap';
-import { v4 as uuid } from 'uuid';
 
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -34,7 +33,7 @@ const ItemModal = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        dispatch(addItem({ id: uuid(), name: state.inputValue }));
+        dispatch(addItem({ name: state.inputValue }));
         handleToggle();
     }
 
