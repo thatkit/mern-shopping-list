@@ -19,7 +19,8 @@ export const shoppingListSlice = createSlice({
             { id: uuid(), name: 'Choco' },
             { id: uuid(), name: 'Milk' }
         ],
-        // isLoading: ,
+        isLoading: false,
+        hasError: false
     },
     reducers: {
         addItem: (state, action) => {
@@ -35,12 +36,21 @@ export const shoppingListSlice = createSlice({
             };
         }
     },
-    // extraReducers: {
-    //     [loadItems.fulfilled]: (state, action) => ({
-    //         state.loading = true;
-            
-    //     })
-    // }
+    extraReducers: {
+        [loadItems.fulfilled]: (state, action) => {
+            state.items = action.payload;
+            state.isLoading = false;
+            state.hasError = false;
+        },
+        [loadItems.pending]: (state, action) => {
+            state.isLoading = true;
+            state.hasError = false;
+        },
+        [loadItems.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.hasError = true;
+        },
+    }
 });
 
 export const { addItem, deleteItem } = shoppingListSlice.actions;
