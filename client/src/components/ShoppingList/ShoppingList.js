@@ -4,6 +4,7 @@ import {
     ListGroupItem,
     Button
 } from 'reactstrap';
+import LoadingSpinner from './LoadingSpinner/LoadingSpinner';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,6 +13,7 @@ import { loadItems, deleteItem } from './shoppingListSlice';
 const ShoppingList = () => {
     const dispatch = useDispatch();
     const items = useSelector(state => state.shoppingList.items);
+    const isLoading = useSelector(state => state.shoppingList.isLoading);
 
     // loads items from server on first render
     useEffect(() => {
@@ -22,6 +24,8 @@ const ShoppingList = () => {
     const handleDelete = id => dispatch(deleteItem(id));
     
     return (
+        <>
+        {isLoading && <LoadingSpinner />}
         <ListGroup className="list-cnt">
             <TransitionGroup className="shopping-list">
                 {items.map(({_id, name}) => (
@@ -39,6 +43,7 @@ const ShoppingList = () => {
                 ))}
             </TransitionGroup>
         </ListGroup>
+        </>
     );
 }
 
