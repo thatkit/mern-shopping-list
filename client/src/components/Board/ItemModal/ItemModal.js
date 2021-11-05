@@ -8,10 +8,11 @@ import {
 } from 'reactstrap';
 
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { addItem } from '../../../store/shoppingListSlice';
 
 const ItemModal = () => {
+    const isLoading = useSelector(state => state.shoppingList.isLoading);
     const dispatch = useDispatch();
     const [state, setState] = useState({
         open: false,
@@ -37,36 +38,39 @@ const ItemModal = () => {
         handleToggle();
     }
 
-    return (
-        <>
-            <Button
-                color="dark"
-                className="mt-3"
-                onClick={handleToggle}
-            >Add Item</Button>
-
-            <Modal
-                isOpen={state.open}
-                toggle={handleToggle}
-            >
-                <ModalHeader>Add to shopping list</ModalHeader>
-                <ModalBody>
-                    <Form onSubmit={handleSubmit}>
-                        <Input 
-                            type="text"
-                            name="name"
-                            id="item"
-                            placeholder="Add shopping item"
-                            onChange={handleChange}
-                        />
-                        <Button color="dark" className="mt-3" >
-                            Add Item                            
-                        </Button>
-                    </Form>
-                </ModalBody>
-            </Modal>
-        </>    
-    )
+    if (!isLoading) {
+        return (
+            <>
+                <Button
+                    color="dark"
+                    className="mt-3"
+                    onClick={handleToggle}
+                >Add Item</Button>
+    
+                <Modal
+                    isOpen={state.open}
+                    toggle={handleToggle}
+                >
+                    <ModalHeader>Add to shopping list</ModalHeader>
+                    <ModalBody>
+                        <Form onSubmit={handleSubmit}>
+                            <Input 
+                                type="text"
+                                name="name"
+                                id="item"
+                                placeholder="Add shopping item"
+                                onChange={handleChange}
+                            />
+                            <Button color="dark" className="mt-3" >
+                                Add Item                            
+                            </Button>
+                        </Form>
+                    </ModalBody>
+                </Modal>
+            </>    
+        )
+    }
+    return null;
 }
 
 export default ItemModal;
