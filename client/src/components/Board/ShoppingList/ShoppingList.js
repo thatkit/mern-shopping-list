@@ -8,7 +8,7 @@ import LoadingSpinner from './LoadingSpinner/LoadingSpinner';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { loadItems, deleteItem } from './shoppingListSlice';
+import { loadItems, deleteItem } from '../../../store/shoppingListSlice';
 
 const ShoppingList = () => {
     const dispatch = useDispatch();

@@ -9,7 +9,7 @@ import {
 
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addItem } from '../ShoppingList/shoppingListSlice';
+import { addItem } from '../../../store/shoppingListSlice';
 
 const ItemModal = () => {
     const dispatch = useDispatch();
