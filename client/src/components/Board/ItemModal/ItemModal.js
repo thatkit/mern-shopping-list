@@ -3,13 +3,14 @@ import {
     Modal,
     ModalHeader,
     ModalBody,
-    Form,
-    Input,
+    Form
 } from 'reactstrap';
 
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addItem } from '../../../store/shoppingListSlice';
+
+import InputField from './InputField/InputField';
 
 const ItemModal = () => {
     const isLoading = useSelector(state => state.shoppingList.isLoading);
@@ -54,13 +55,7 @@ const ItemModal = () => {
                     <ModalHeader>Add to shopping list</ModalHeader>
                     <ModalBody>
                         <Form onSubmit={handleSubmit}>
-                            <Input 
-                                type="text"
-                                name="name"
-                                id="item"
-                                placeholder="Add shopping item"
-                                onChange={handleChange}
-                            />
+                            <InputField onChange={handleChange} />
                             <Button color="dark" className="mt-3" >
                                 Add Item                            
                             </Button>
