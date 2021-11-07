@@ -5,39 +5,11 @@ import {
     ModalBody,
     Form
 } from 'reactstrap';
-
-import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { addItem } from '../../../store/shoppingListSlice';
-
+import { useSelector } from 'react-redux';
 import InputField from './InputField/InputField';
 
-const ItemModal = () => {
+const ItemModal = (props) => {
     const isLoading = useSelector(state => state.shoppingList.isLoading);
-    const dispatch = useDispatch();
-    const [state, setState] = useState({
-        open: false,
-        inputValue: ''
-    });
-
-    const handleToggle = () => {
-        setState(prevState => {return { ...prevState, open: !prevState.open }});
-    }
-
-    const handleChange = e => {
-        setState(prevState => {
-            return {
-                ...prevState,
-                inputValue: e.target.value
-            }
-        });
-    }
-
-    const handleSubmit = e => {
-        e.preventDefault();
-        dispatch(addItem({ name: state.inputValue }));
-        handleToggle();
-    }
 
     if (!isLoading) {
         return (
@@ -45,17 +17,17 @@ const ItemModal = () => {
                 <Button
                     color="dark"
                     className="mt-3"
-                    onClick={handleToggle}
+                    onClick={props.handleToggle}
                 >Add Item</Button>
     
                 <Modal
-                    isOpen={state.open}
-                    toggle={handleToggle}
+                    isOpen={props.state.open}
+                    toggle={props.handleToggle}
                 >
                     <ModalHeader>Add to shopping list</ModalHeader>
                     <ModalBody>
-                        <Form onSubmit={handleSubmit}>
-                            <InputField onChange={handleChange} />
+                        <Form onSubmit={props.handleSubmit}>
+                            <InputField onChange={props.handleChange} />
                             <Button color="dark" className="mt-3" >
                                 Add Item                            
                             </Button>
