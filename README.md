@@ -26,7 +26,3 @@ In a few words,
  - React.js
  - Redux
  - Bootstrap (Reactstrap)
-
-## Author
-
-[thatkit](https://github.com/thatkit) from Vladivostok, Russia
